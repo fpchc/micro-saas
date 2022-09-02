@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright (c) 2016—2022 Ecsage.Co.Ltd. All rights reserved.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+  <parent>
+    <groupId>com.micro.cloud</groupId>
+    <artifactId>micro-saas-base</artifactId>
+    <version>2.0.0.RELEASE</version>
+  </parent>
+
+  <artifactId>micro-saas-parent</artifactId>
+  <version>2.0.0.RELEASE</version>
+  <packaging>pom</packaging>
+
+  <name>${project.artifactId}</name>
+  <description>
+    micro的父项目, 打包, 发布
+  </description>
+  <properties>
+    <mk-saas-dependencies.version>2.0.0.RELEASE</mk-saas-dependencies.version>
+    <lombok.version>1.18.20</lombok.version>
+    <mapstruct.version>1.4.1.Final</mapstruct.version>
+    <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+  </properties>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.ecsage.cloud</groupId>
+        <artifactId>mk-saas-dependencies</artifactId>
+        <version>${mk-saas-dependencies.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        <version>${spring-cloud-alibaba.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        <version>${spring-cloud-alibaba.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok-mapstruct-binding</artifactId>
+      <version>0.2.0</version>
+    </dependency>
+  </dependencies>
+
+</project>
