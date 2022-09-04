@@ -1,0 +1,81 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    show-sql: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+      # 主库数据源
+    url: jdbc:mysql://${DS_HOST:127.0.0.1}:${DS_PORT:3306}/${DS_DB:sample-project}?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8
+    username: ${DS_USER:root}
+    password: ${DS_PASS:root}
+    # 初始连接数
+    initialSize: 5
+    # 最小连接池数量
+    # 最大连接池数量
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    # 配置一个连接在池中最大生存的时间，单位是毫秒
+    maxEvictableIdleTimeMillis: 900000
+    # 配置检测连接是否有效
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    webStatFilter:
+      enabled: true
+    statViewServlet:
+      enabled: true
+      # 设置白名单，不填则允许所有访问
+      allow:
+      url-pattern: /monitor/druid/*
+    filter:
+      stat:
+        enabled: true
+        # 慢SQL记录
+        log-slow-sql: true
+        slow-sql-millis: 1000
+        merge-sql: true
+      wall:
+        config:
+          multi-statement-allow: true
+  redis:
+    host: ${REDIS_HOST:127.0.0.1}
+    password: ${REDIS_PASSWORD:''}
+    port: ${REDIS_PORT:6379}
+  redisson:
+    config:
+      singleServerConfig: |
+        idleConnectionTimeout: 10000
+        connectTimeout: 10000
+        timeout: 3000
+        retryAttempts: 3
+        retryInterval: 1500
+        password: null
+        subscriptionsPerConnection: 5
+        clientName: null
+        address: "redis://127.0.0.1:6379"
+        subscriptionConnectionMinimumIdleSize: 1
+        subscriptionConnectionPoolSize: 50
+        connectionMinimumIdleSize: 24
+        connectionPoolSize: 64
+        database: 0
+        dnsMonitoringInterval: 5000
+      threads: 16
+      nettyThreads: 32
+      transportMode: "NIO"
+
+logging:
+  file:
+    path: d:/project/logs/${spring.application.name}
+  level:
+    root: info
+
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <include resource="logback-defaults.xml"/>
+
+    <springProfile name="test">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <!--some example-->
+    <springProfile name="dev">
+        <logger name="com.querydsl.sql.AbstractSQLQuery" level="debug"/>
+        <logger name="com.querydsl.sql.AbstractSQLQuery" level="debug"/>
+        <logger name="com.querydsl.sql" level="debug"/>
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>

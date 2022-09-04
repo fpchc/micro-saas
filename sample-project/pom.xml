@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!--
-  ~ Copyright (c) 2016—2022 Ecsage.Co.Ltd. All rights reserved.
-  -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -10,33 +7,39 @@
 
   <parent>
     <groupId>com.micro.cloud</groupId>
-    <artifactId>micro-saas-base</artifactId>
+    <artifactId>micro-saas-parent</artifactId>
     <version>2.0.0.RELEASE</version>
-    <relativePath>../micro-saas-base</relativePath>
+    <relativePath>../micro-saas-parent</relativePath>
   </parent>
 
-  <artifactId>micro-saas-parent</artifactId>
+  <artifactId>sample-project</artifactId>
   <version>2.0.0.RELEASE</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
   <description>
-    micro的父项目, 打包, 发布
+    sample-project
   </description>
+
+  <modules>
+    <module>sample-project-api</module>
+    <module>sample-project-service</module>
+  </modules>
+
   <properties>
     <micro-saas-dependencies.version>2.0.0.RELEASE</micro-saas-dependencies.version>
     <lombok.version>1.18.20</lombok.version>
     <mapstruct.version>1.4.1.Final</mapstruct.version>
     <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.micro.cloud</groupId>
         <artifactId>micro-saas-dependencies</artifactId>
         <version>${micro-saas-dependencies.version}</version>
-        <scope>import</scope>
-        <type>pom</type>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>com.alibaba.cloud</groupId>
@@ -59,6 +62,12 @@
             <artifactId>nacos-client</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+
+      <dependency>
+        <groupId>com.micro.cloud</groupId>
+        <artifactId>sample-project-api</artifactId>
+        <version>2.0.0.RELEASE</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

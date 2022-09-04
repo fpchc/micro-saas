@@ -13,5 +13,6 @@
     <module>micro-saas-parent</module>
     <module>micro-saas-dependencies</module>
     <module>micro-saas-common</module>
+    <module>sample-project</module>
   </modules>
 </project>
