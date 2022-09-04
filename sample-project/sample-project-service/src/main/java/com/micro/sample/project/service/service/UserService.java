@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.micro.sample.project.service.model.QUser;
 import com.micro.sample.project.service.model.User;
+import com.querydsl.core.Tuple;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,8 @@ public class UserService implements IUserService{
     @Override
     public List<User> queryAll() {
         QUser user = QUser.user;
-        return null;
+        return jpaQueryFactory.selectFrom(user)
+                .orderBy(user.createdTime.desc()).fetch();
     }
 
 
