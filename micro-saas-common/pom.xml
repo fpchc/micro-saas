@@ -14,7 +14,7 @@
   <version>${revision}</version>
   <packaging>pom</packaging>
   <properties>
-    <revision>2.5.3</revision>
+    <revision>2.0.0.RELEASE</revision>
     <micro-saas-dependencies.version>2.0.0.RELEASE</micro-saas-dependencies.version>
   </properties>
 
