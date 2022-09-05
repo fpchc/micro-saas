@@ -1,4 +1,4 @@
-package com.micro.sample.project.service;
+package com.micro.sample.project;
 
 import javax.persistence.EntityManager;
 

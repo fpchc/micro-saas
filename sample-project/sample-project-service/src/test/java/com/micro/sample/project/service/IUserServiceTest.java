@@ -1,4 +1,4 @@
-package com.micro.sample.project.service.service;
+package com.micro.sample.project.service;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.micro.sample.project.service.model.User;
+import com.micro.sample.project.model.User;
 
 import lombok.extern.slf4j.Slf4j;
 

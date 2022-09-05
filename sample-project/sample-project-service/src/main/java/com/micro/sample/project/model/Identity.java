@@ -1,4 +1,4 @@
-package com.micro.sample.project.service.model;
+package com.micro.sample.project.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

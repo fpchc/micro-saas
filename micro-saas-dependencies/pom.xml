@@ -60,12 +60,7 @@
   <!-- 依赖声明 -->
   <dependencyManagement>
     <dependencies>
-      <!--ec common-->
-<!--      <dependency>-->
-<!--        <groupId>com.ecsage.cloud</groupId>-->
-<!--        <artifactId>nacos-client</artifactId>-->
-<!--        <version>${nacos.version}</version>-->
-<!--      </dependency>-->
+
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -171,13 +166,6 @@
         <version>${bitwalker.version}</version>
       </dependency>
 
-      <!-- pagehelper 分页插件 -->
-      <dependency>
-        <groupId>com.github.pagehelper</groupId>
-        <artifactId>pagehelper-spring-boot-starter</artifactId>
-        <version>${pagehelper.boot.version}</version>
-      </dependency>
-
       <!-- 获取系统信息 -->
       <dependency>
         <groupId>com.github.oshi</groupId>
@@ -251,6 +239,7 @@
         <artifactId>commons-pool2</artifactId>
         <version>${common-pool.version}</version>
       </dependency>
+
       <dependency>
         <groupId>com.google.auto.service</groupId>
         <artifactId>auto-service</artifactId>
@@ -284,17 +273,14 @@
         <version>${mockito.version}</version>
         <scope>test</scope>
       </dependency>
-      <dependency>
-        <groupId>com.ecsage.xxlJob</groupId>
-        <artifactId>xxl-job-core</artifactId>
-        <version>${xxl-job-core.version}</version>
-      </dependency>
+
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
         <scope>test</scope>
       </dependency>
+
       <dependency>
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
@@ -334,19 +320,6 @@
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
         <version>${mapstruct.version}</version>
-      </dependency>
-
-      <!-- 通用工具 -->
-      <dependency>
-        <groupId>com.ecsage.tools</groupId>
-        <artifactId>ecsage-commons</artifactId>
-        <version>${ecsage-commons.version}</version>
-        <exclusions>
-          <exclusion>
-            <artifactId>slf4j-log4j12</artifactId>
-            <groupId>org.slf4j</groupId>
-          </exclusion>
-        </exclusions>
       </dependency>
 
       <dependency>

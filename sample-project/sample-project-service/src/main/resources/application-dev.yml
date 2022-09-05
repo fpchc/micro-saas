@@ -76,6 +76,11 @@ spring:
       nettyThreads: 32
       transportMode: "NIO"
 
+springdoc:
+  api-docs:
+    path: /api-docs
+    enabled: true
+
 logging:
   file:
     path: d:/project/logs/${spring.application.name}
