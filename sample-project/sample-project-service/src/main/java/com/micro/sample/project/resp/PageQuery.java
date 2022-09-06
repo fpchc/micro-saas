@@ -1,13 +1,5 @@
 package com.micro.sample.project.resp;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.data.domain.PageRequest;
-
-import com.google.common.collect.Lists;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,11 +13,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(staticName = "of")
 public class PageQuery<T> {
 
-    @Schema(description = "page")
+    @Schema(title = "页数", description = "page", defaultValue = "1", minimum = "0")
     @Builder.Default
     private Integer page = 0;
 
-    @Schema(description = "pageSize")
+    @Schema(title = "页容量", description = "pageSize", defaultValue = "10", minimum = "0")
     @Builder.Default
     private Integer pageSize = 10;
 

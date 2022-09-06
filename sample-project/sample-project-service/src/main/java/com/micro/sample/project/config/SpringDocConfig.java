@@ -1,13 +1,11 @@
 package com.micro.sample.project.config;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.google.common.collect.Lists;
-import com.querydsl.core.annotations.Config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -16,6 +14,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityScheme.In;
 import io.swagger.v3.oas.models.security.SecurityScheme.Type;
 import io.swagger.v3.oas.models.servers.Server;
 
@@ -30,8 +29,9 @@ public class SpringDocConfig {
 
     public Components getComponents() {
         // 方式一
-        SecurityScheme httpScheme = new SecurityScheme().name("http").type(Type.HTTP)
-                .description("这是http模式").scheme("bearer").bearerFormat("Jwt").$ref("Bearer ");
+        SecurityScheme httpScheme = new SecurityScheme()
+                .name("Authorization").type(Type.HTTP).in(In.HEADER).scheme("Bearer")
+                .description("http授权模式，auth header：Authorization， 不需要Bearer前缀");
 
         // 方式二
 //        SecurityScheme apiKeyScheme = new SecurityScheme().name("apiKey").type(Type.APIKEY)
@@ -47,20 +47,20 @@ public class SpringDocConfig {
     }
 
     public SecurityRequirement getSecurity() {
-        return new SecurityRequirement().addList("JwtAuth");
+        return new SecurityRequirement().addList("httpBearer");
     }
 
     public Info getInfo() {
         return new Info().title("sample-project")
                 .contact(getContact())
-                .license(new License().url("http://sample.project.com"))
+                .license(new License().url("https://sample.project.com"))
                 .description("sample-project")
                 .version("1.0.1");
     }
 
     public Contact getContact() {
         return new Contact().email("sample-project@outlook.com")
-                .name("project").url("http://sample.project.com");
+                .name("project").url("https://sample.project.com");
     }
 
 }

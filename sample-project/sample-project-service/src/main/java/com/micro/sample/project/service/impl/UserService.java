@@ -1,6 +1,7 @@
 package com.micro.sample.project.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,8 +19,6 @@ import com.micro.sample.project.dto.UserDto;
 import com.micro.sample.project.mapStruct.UserMapping;
 import com.micro.sample.project.model.QUser;
 import com.micro.sample.project.model.User;
-import com.micro.sample.project.repository.JpaDslRepository;
-import com.micro.sample.project.repository.UserRepository;
 import com.micro.sample.project.resp.PageQuery;
 import com.micro.sample.project.query.UserQuery;
 import com.micro.sample.project.resp.PageUtil;
@@ -29,7 +28,6 @@ import com.micro.sample.project.service.IUserService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
