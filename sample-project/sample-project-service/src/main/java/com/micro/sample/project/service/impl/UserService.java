@@ -18,10 +18,12 @@ import com.micro.sample.project.mapStruct.UserMapping;
 import com.micro.sample.project.model.QUser;
 import com.micro.sample.project.model.User;
 import com.micro.sample.project.repository.JpaDslRepository;
+import com.micro.sample.project.repository.UserRepository;
 import com.micro.sample.project.resp.PageQuery;
 import com.micro.sample.project.query.UserQuery;
 import com.micro.sample.project.resp.PageUtil;
 import com.micro.sample.project.resp.PageVo;
+import com.micro.sample.project.service.AbstractService;
 import com.micro.sample.project.service.IUserService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ExpressionUtils;
@@ -34,11 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService implements IUserService {
-
-    private final QuerydslKeyValueRepository<User, Long> repository;
-
-    private final JPAQueryFactory queryFactory;
+public class UserService extends AbstractService<User, Long> implements IUserService {
 
     private final DefaultObjectMapper objectMapper;
 
@@ -70,7 +68,8 @@ public class UserService implements IUserService {
     public Long create(CreateUserCmd cmd) {
         log.info("创建用户命令：{}", objectMapper.writeValueAsString(cmd));
         User user = UserMapping.USER_MAPPING.createCmdToUser(cmd);
-        User save = repository.save(user);
-        return save.getId();
+        user = user.toBuilder().isDelete(false).status(Short.parseShort("0")).build();
+        user = repository.save(user);
+        return user.getId();
     }
 }

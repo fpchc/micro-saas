@@ -1,17 +1,19 @@
 package com.micro.sample.project;
 
+import java.io.Serializable;
+
 import javax.persistence.EntityManager;
 
+import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.IdentifierGenerator;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.support.QuerydslJpaPredicateExecutor;
-import org.springframework.data.keyvalue.core.KeyValueOperations;
-import org.springframework.data.keyvalue.repository.support.QuerydslKeyValueRepository;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.repository.core.EntityInformation;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+
+import cn.hutool.core.util.IdUtil;
 
 @SpringBootApplication
 public class SampleProjectApplication {

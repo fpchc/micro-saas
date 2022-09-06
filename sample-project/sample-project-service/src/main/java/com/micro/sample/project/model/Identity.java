@@ -1,12 +1,15 @@
 package com.micro.sample.project.model;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.GeneratorType;
 import org.hibernate.annotations.GenericGenerator;
 import org.mapstruct.ap.internal.model.GeneratedType;
+import org.springframework.data.keyvalue.core.IdentifierGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +27,10 @@ import lombok.experimental.SuperBuilder;
 public abstract class Identity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "snowFlakeIdentifierGenerator",
+            strategy = "com.micro.sample.project.config.SnowFlakeIdentifierGenerator")
+    @GeneratedValue(generator = "snowFlakeIdentifierGenerator")
+    @Column(name = "id", length = 11)
     private Long id;
 
 }
