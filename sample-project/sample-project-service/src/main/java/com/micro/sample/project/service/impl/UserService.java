@@ -1,6 +1,7 @@
 package com.micro.sample.project.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,6 +40,8 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService extends AbstractService<User, Long> implements IUserService {
 
     private final DefaultObjectMapper objectMapper;
+
+    private final RedissonClient redissonClient;
 
     @Override
     public PageVo<UserDto> query(PageQuery<UserQuery> query) {

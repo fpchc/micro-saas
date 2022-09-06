@@ -52,8 +52,11 @@ spring:
           multi-statement-allow: true
   redis:
     host: ${REDIS_HOST:127.0.0.1}
-    password: ${REDIS_PASSWORD:''}
+#    password: ${REDIS_PASSWORD:}
     port: ${REDIS_PORT:6379}
+    lettuce:
+      pool:
+        max-active: 30
   redisson:
     config:
       singleServerConfig: |

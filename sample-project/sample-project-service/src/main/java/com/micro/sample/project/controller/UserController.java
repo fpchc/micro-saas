@@ -30,7 +30,7 @@ public class UserController {
     private final IUserService userService;
 
     @Operation(summary = "用户条件查询")
-    @GetMapping("/query")
+    @PostMapping("/query")
     public RespResult<PageVo<UserDto>> query(@RequestBody PageQuery<UserQuery> query) {
         return RespResult.success(userService.query(query));
     }
