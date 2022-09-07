@@ -1,26 +1,22 @@
 package com.micro.sample.project.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.support.QuerydslJpaRepository;
-import org.springframework.data.keyvalue.repository.support.QuerydslKeyValueRepository;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.micro.sample.project.commands.CreateUserCmd;
+import com.micro.sample.project.api.commands.CreateUserCmd;
 import com.micro.sample.project.config.DefaultObjectMapper;
-import com.micro.sample.project.dto.UserDto;
+import com.micro.sample.project.api.dto.UserDto;
 import com.micro.sample.project.mapStruct.UserMapping;
 import com.micro.sample.project.model.QUser;
 import com.micro.sample.project.model.User;
 import com.micro.sample.project.resp.PageQuery;
-import com.micro.sample.project.query.UserQuery;
+import com.micro.sample.project.api.query.UserQuery;
 import com.micro.sample.project.resp.PageUtil;
 import com.micro.sample.project.resp.PageVo;
 import com.micro.sample.project.service.AbstractService;
@@ -34,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
+@Repository
 @RequiredArgsConstructor
 public class UserService extends AbstractService<User, Long> implements IUserService {
 

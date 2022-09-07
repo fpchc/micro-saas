@@ -1,4 +1,4 @@
-package com.micro.sample.project.commands;
+package com.micro.sample.project.api.commands;
 
 import java.rmi.dgc.Lease;
 

@@ -1,7 +1,5 @@
 package com.micro.sample.project.service;
 
-import java.util.List;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,13 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.micro.sample.project.commands.CreateUserCmd;
+import com.micro.sample.project.api.commands.CreateUserCmd;
 import com.micro.sample.project.config.DefaultObjectMapper;
-import com.micro.sample.project.dto.UserDto;
-import com.micro.sample.project.model.User;
-import com.micro.sample.project.query.UserQuery;
+import com.micro.sample.project.api.dto.UserDto;
+import com.micro.sample.project.api.query.UserQuery;
 import com.micro.sample.project.resp.PageQuery;
 import com.micro.sample.project.resp.PageVo;
 

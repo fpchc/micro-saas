@@ -1,11 +1,9 @@
 package com.micro.sample.project.service;
 
-import org.springframework.data.domain.Page;
-
-import com.micro.sample.project.commands.CreateUserCmd;
-import com.micro.sample.project.dto.UserDto;
+import com.micro.sample.project.api.commands.CreateUserCmd;
+import com.micro.sample.project.api.dto.UserDto;
 import com.micro.sample.project.resp.PageQuery;
-import com.micro.sample.project.query.UserQuery;
+import com.micro.sample.project.api.query.UserQuery;
 import com.micro.sample.project.resp.PageVo;
 
 public interface IUserService {
