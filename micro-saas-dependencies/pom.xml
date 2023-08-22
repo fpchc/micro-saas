@@ -55,6 +55,7 @@
     <querydsl.version>4.4.0</querydsl.version>
     <org.springdoc.version>1.6.9</org.springdoc.version>
     <io.swagger.version>2.2.2</io.swagger.version>
+    <poi.version>5.0.0</poi.version>
   </properties>
 
   <!-- 依赖声明 -->
@@ -212,6 +213,12 @@
       <dependency>
         <groupId>org.apache.poi</groupId>
         <artifactId>poi-ooxml</artifactId>
+        <version>${poi.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
         <version>${poi.version}</version>
       </dependency>
 
