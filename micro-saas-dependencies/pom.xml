@@ -24,8 +24,8 @@
 
   <properties>
     <spring-boot.version>2.5.3</spring-boot.version>
-    <spring-cloud.version>2020.0.3</spring-cloud.version>
-    <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+    <spring-cloud.version>2022.0.4</spring-cloud.version>
+    <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
     <spring-boot-admin.version>2.2.4</spring-boot-admin.version>
     <druid.version>1.2.6</druid.version>
     <bitwalker.version>1.21</bitwalker.version>

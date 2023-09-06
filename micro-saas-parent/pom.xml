@@ -27,7 +27,7 @@
     <micro-saas-dependencies.version>2.0.0.RELEASE</micro-saas-dependencies.version>
     <lombok.version>1.18.20</lombok.version>
     <mapstruct.version>1.4.1.Final</mapstruct.version>
-    <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+    <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
   </properties>
   <dependencyManagement>
     <dependencies>
