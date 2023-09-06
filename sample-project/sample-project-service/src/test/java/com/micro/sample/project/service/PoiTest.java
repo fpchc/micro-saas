@@ -5,12 +5,19 @@ import cn.hutool.json.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.micro.sample.project.service.QuesDO.QuesDOBuilder;
 import com.micro.sample.project.service.QuesOption.QuesOptionBuilder;
+import com.micro.sample.project.service.QuesPoiDto.QuesOptionPoiDto;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -26,61 +33,74 @@ import org.junit.Test;
 public class PoiTest {
 
     @Test
-    public void testImportWord() {
+    public void test() {
+        ArrayList<Integer> numbers = new ArrayList<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
 
-        List<String> characters = Lists.newArrayList("A.", "B.", "C.", "D.", "E.", "F.", "G.", "H.", "J.");
+        // 获取子列表
+        List<Integer> subList = numbers.subList(0, 1);
+
+        // 输出子列表的内容
+        for (Integer number : subList) {
+            System.out.println(number);
+        }
+    }
+
+    @Test
+    public void testImportWord() {
         String filePath = "C:\\Users\\admin\\Desktop\\题库导入模板.docx";
-        try {
-            FileInputStream fis = new FileInputStream(filePath);
+        try (FileInputStream fis = new FileInputStream(filePath)){
             XWPFDocument document = new XWPFDocument(fis);
             List<XWPFParagraph> paragraphs = document.getParagraphs();
-            List<QuesDO> quesDOS = new ArrayList<>();
-            QuesDO quesDO = null;
+            List<QuesPoiDto> quesPoiDtos = new ArrayList<>();
+            QuesPoiDto quesPoiDto = null;
             for (XWPFParagraph para : paragraphs) {
                 String text = para.getText();
-                if (text.startsWith("【单选题】") || text.startsWith("【多选题】") || text.startsWith("【判断题】")) {
-                    quesDO = new QuesDO();
-                    quesDO.setId(IdUtil.getSnowflake().nextId());
-                    if (StringUtils.equals(text.substring(1, 4), "单选题")) {
-                        quesDO.setType(Short.parseShort("0"));
+                if (Pattern.matches("^【(单选题|多选题|判断题)】(.*)", text)) {
+                    quesPoiDto = new QuesPoiDto();
+                    if (text.startsWith("【单选题】")) {
+                        quesPoiDto.setType(Short.parseShort("0"));
+                    } else if (text.startsWith("【多选题】")) {
+                        quesPoiDto.setType(Short.parseShort("1"));
+                    } else if (text.startsWith("【判断题】")) {
+                        quesPoiDto.setType(Short.parseShort("2"));
                     }
-                    if (StringUtils.equals(text.substring(1, 4), "多选题")) {
-                        quesDO.setType(Short.parseShort("1"));
+                    quesPoiDto.setTitle(text.substring(5));
+                } else if (Pattern.matches("^难度[：:]\\s*(.*)", text)) {
+                    if (quesPoiDto == null) continue;
+                    String diff = text.substring(3);
+                    if (StringUtils.equals("初级", diff)) {
+                        quesPoiDto.setDiff(Short.parseShort("0"));
+                    } else if (StringUtils.equals("中级", diff)) {
+                        quesPoiDto.setDiff(Short.parseShort("1"));
+                    } else if (StringUtils.equals("高级", diff)) {
+                        quesPoiDto.setDiff(Short.parseShort("2"));
                     }
-                    if (StringUtils.equals(text.substring(1, 4), "判断题")) {
-                        quesDO.setType(Short.parseShort("2"));
-                    }
-                    quesDO.setTitle(text.substring(5));
-                    log.info(text.substring(5));
-                }
-
-                if (text.startsWith("难度：")) {
-                    quesDO.setDiff(text.substring(3));
-                    log.info(text.substring(3));
-                }
-                if (text.startsWith("解析：")) {
-                    quesDO.setResolve(text.substring(3));
-                    log.info(text.substring(3));
-                    quesDOS.add(quesDO);
-                }
-                if (text.startsWith("A.") || text.startsWith("B.") || text.startsWith("C.") || text.startsWith("D.")) {
-                    QuesOption quesOption = new QuesOption();
-                    quesOption.setId(IdUtil.getSnowflake().nextId());
-                    quesOption.setTitle(text.substring(2));
-                    quesDO.getQuesOptions().add(quesOption);
-                    log.info(text.substring(2));
-                }
-                if (text.startsWith("答案：")) {
-                    log.info(text.substring(3));
+                } else if (Pattern.matches("^[A-Z][.、].*$", text)) {
+                    if (quesPoiDto == null) continue;
+                    QuesOptionPoiDto quesOptionPoiDto = new QuesOptionPoiDto();
+                    quesOptionPoiDto.setPrefix(text.substring(0, 2));
+                    quesOptionPoiDto.setTitle(text.substring(2));
+                    quesPoiDto.getOptions().add(quesOptionPoiDto);
+                } else if (Pattern.matches("^答案[：:]\\s*(.*)", text)) {
+                    if (quesPoiDto == null) continue;
+                    String defaultIfBlank = StringUtils.defaultIfBlank(text.substring(3), "");
+                    quesPoiDto.setAnswers(Arrays.stream(defaultIfBlank.split("")).collect(Collectors.toList()));
+                } else if (Pattern.matches("^解析[：:]\\s*(.*)", text)) {
+                    if (quesPoiDto == null) continue;
+                    quesPoiDto.setResolve(text.substring(3));
+                    quesPoiDtos.add(quesPoiDto);
                 }
             }
             ObjectMapper objectMapper = new ObjectMapper();
-            log.info("返回结果集：{}", objectMapper.writeValueAsString(quesDOS));
-            fis.close();
-        } catch (Exception e) {
-            log.error(e.getMessage());
+            log.info("解析word结果为：{}", objectMapper.writeValueAsString(quesPoiDtos));
+        } catch (IOException e) {
+            log.error("");
         }
-
     }
 
 }
