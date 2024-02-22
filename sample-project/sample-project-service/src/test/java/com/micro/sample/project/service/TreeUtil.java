@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
@@ -34,13 +35,16 @@ public class TreeUtil {
     }
 
     public static <T extends ITree<T>> List<T> generateDfsLrdTree(List<T> list) {
-        Map<T, List<T>> relations = new HashMap<>();
-        for (T node : list) {
-            List<T> ts = relations.computeIfAbsent(node.getParent(), (T) -> new LinkedList<>());
-            ts.add(node);
+        List<T> roots = list.stream().filter(t -> t.getParent() == null).toList();
+        Queue<T> queue = new LinkedList<>(roots);
+        while (!queue.isEmpty()) {
+            T poll = queue.poll();
+            List<T> children = list.stream().filter(t -> poll.equals(t.getParent()))
+                    .toList();
+            poll.setChildren(children);
+            children.forEach(queue::offer);
         }
-
-        return null;
+        return roots;
     }
 
 }

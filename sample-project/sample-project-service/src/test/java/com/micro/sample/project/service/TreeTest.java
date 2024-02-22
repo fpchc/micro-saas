@@ -1,5 +1,8 @@
 package com.micro.sample.project.service;
 
+import cn.hutool.json.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.micro.common.core.entity.NodeTree;
 import java.util.List;
@@ -13,7 +16,7 @@ import org.junit.Test;
 public class TreeTest {
 
     @Test
-    public void testTree() {
+    public void testTree() throws JsonProcessingException {
         List<NodeTree> menuList = Lists.newArrayList(
                 new NodeTree(1, null,"一级菜单"),
                 new NodeTree(2, 1,"二级菜单1"),
@@ -22,8 +25,9 @@ public class TreeTest {
                 new NodeTree(4, 2,"三级菜单2")
         );
 
-        List<NodeTree> nodeTrees = TreeUtil.generateDfsDlrTree(menuList);
-        System.out.println(nodeTrees);
+        List<NodeTree> nodeTrees = TreeUtil.generateDfsLrdTree(menuList);
+        ObjectMapper objectMapper = new ObjectMapper();
+        System.out.println(objectMapper.writeValueAsString(nodeTrees));
     }
 
 }
